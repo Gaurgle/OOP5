@@ -1,0 +1,9 @@
+Rulle Rullson, Xvägen 3, 12345 Ystad
+Ålder: 56, Vikt: 35, Längd: 201
+
+Nisse Nilsson, Xvägen 6, 12345 Ystad
+Ålder: 23, Vikt: 80, Längd: 205
+
+Johhny Mountain, Strawberry Fields 6, 42069 Estocolmo
+Ålder: 34, Vikt: 100, Längd: 200
+
