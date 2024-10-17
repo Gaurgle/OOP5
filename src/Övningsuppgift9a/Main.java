@@ -1,11 +1,10 @@
 package Övningsuppgift9a;
 
-import java.awt.*;
+import javax.swing.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,10 +16,10 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        // måste först sortera vid första ","
-        // sedan är nästa info adressen, som tar slut vid "\n"
-        // sedan är det 3 st int, separerade med ","
-        // tar slut med "\n"
+/*       måste först sortera vid första ","
+         sedan är nästa info adressen, som tar slut vid "\n"
+         sedan är det 3 st int, separerade med ","
+         tar slut med "\n"*/ // skiss
 
         List<Person> persons = new ArrayList<>();
 
@@ -33,21 +32,24 @@ public class Main {
         try {
             Scanner sc = new Scanner(personuppgifter);
             while (sc.hasNextLine()) {
-                String nameAndAdress = sc.nextLine();
-
                 if (sc.hasNextLine()) {
-                    String ageWeightHeight = sc.nextLine();
-                    String[] splitData = ageWeightHeight.split(",\\s*");
 
+                    String nameAndAdress = sc.nextLine();
+                    String ageWeightHeight = sc.nextLine();
+
+                    String[] splitData = ageWeightHeight.split(",\\s*");
                     String[] nameAdressParts = nameAndAdress.split(",\\s+", 2);
+
+                    // variablerna tilldelas värden
                     String name = nameAdressParts[0];
                     String adress = nameAdressParts[1];
 
-                    // måste parse pga vi läser in string.
+                        // måste parse pga vi läser in string.
                     int age = Integer.parseInt(splitData[0]);
                     int weight = Integer.parseInt(splitData[1]);
                     int height = Integer.parseInt(splitData[2]);
 
+                    // lägger in nytt personobjekt i persons-listan
                     persons.add(new Person(name, adress, age, weight, height));
 
                 }
@@ -60,8 +62,47 @@ public class Main {
             return;
         }
 
+//        Sorter sorter = new Sorter();
+//         persons.forEach(System.out::println);
+
+        // Skapa en dialogruta för att välja sortering
+        Object[] options = {"Name","Height"};
+        int choice = JOptionPane.showOptionDialog(null,
+                "Sort by:",
+                "Sorting options",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+/*        switch (choice) {
+            case 0:
+                sorter.sortByName(persons);
+                break;
+            case 1:
+                sorter.sortByHeight(persons);
+                break;
+            case 2:
+                sorter.sortByWeight(persons);
+                break;
+            case 3:
+                sorter.sortByAge(persons);
+                break;
+            case 4:
+                sorter.sortByAdress(persons);
+                break;
+            default:
+                System.out.println("Inget val gjort.");
+        }*/ // Switch sort för fler alternativ
+
+        // Sortera persons-listan
+        boolean sortByName = (choice == 0);
+        // Ternery
+        persons.sort(sortByName ? Comparator.comparing(Person::getName) : Comparator.comparingInt(Person::getLength));
+
         for (Person person : persons) {
-            System.out.println(person.length +" cm");
+            System.out.println(person.getName() +": " +person.getLength() +"cm");
         }
 
         List<Person> personOver2m = new ArrayList<>();
@@ -70,7 +111,10 @@ public class Main {
                 personOver2m.add(person);
             }
         }
-        System.out.println("Personer över 2m: " + personOver2m.size() +"st");
+
+        personOver2m.sort(sortByName ? Comparator.comparing(Person::getName) : Comparator.comparingInt(Person::getLength));
+
+        System.out.println("\nPersoner över 2m: " + personOver2m.size() +"st");
         for (Person person : personOver2m) {
             System.out.println(person.name +": " +person.length +"cm");
         }
@@ -83,5 +127,4 @@ public class Main {
             writer.flush();
         }
     }
-
 }

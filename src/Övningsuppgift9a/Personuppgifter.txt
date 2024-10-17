@@ -14,5 +14,5 @@ Ville Wilhemsson, Xvägen 7, 12345 Ystad
 54, 123, 187
 Sune Samuelsson, Xvägen 8, 12345 Ystad
 38, 98, 175
-Johhny Mountain, Strawberry Fields 6, 42069 Estocolmo
+Johny Mountain, Strawberry Fields 6, 42069 Estocolmo
 34, 100, 200
